@@ -6,9 +6,11 @@ Repository for hexp web code i.e. api and user and admin frontends.
 2. `npm i` - install dependencies,
 3. `chmod +x pre-commit.sh && ./pre-commit.sh` - add pre-commit hook,
 4. Create or modify .env file in the root directory with the following parameters:
-	
-	NODE_ENV=development
-	NODE_PORT=4050
+
+Parameter | Expecting | Example
+--- | --- | ---
+NODE_ENV | 'production' or 'development' | 'development'
+NODE_PORT | integer of port to listen on | 3000
 
 5. `npm start` - Start the server,
 6. `npm run nodemon` - Alternatively, start the server in developer mode, restarting after every change made
