@@ -1,0 +1,34 @@
+{
+  "name": "hexp-web",
+  "version": "1.0.0",
+  "description": "Hexp web: api, user and admin frontends.",
+  "main": "bin/www",
+  "scripts": {
+    "start": "node bin/www",
+    "test": "mocha --recursive",
+    "lint": "eslint */*"
+  },
+  "keywords": [
+    "api",
+    "web",
+    "express",
+    "react"
+  ],
+  "author": "sin6pi7",
+  "license": "ISC",
+  "engines": {
+    "node": "6.10.0"
+  },
+  "dependencies": {
+    "express": "4.15.2"
+  },
+  "devDependencies": {
+    "eslint": "3.17.1",
+    "eslint-config-airbnb": "14.1.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "6.10.0",
+    "mocha": "3.2.0",
+    "supertest": "3.0.0"
+  }
+}
