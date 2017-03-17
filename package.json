@@ -5,8 +5,10 @@
   "main": "bin/www",
   "scripts": {
     "start": "node bin/www",
+    "nodemon": "nodemon bin/www",
     "test": "mocha --recursive",
-    "lint": "eslint */*"
+    "lint": "eslint */*",
+    "webpack": "webpack --watch"
   },
   "keywords": [
     "api",
@@ -20,15 +22,24 @@
     "node": "6.10.0"
   },
   "dependencies": {
-    "express": "4.15.2"
+    "express": "4.15.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   },
   "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
     "eslint": "3.17.1",
     "eslint-config-airbnb": "14.1.0",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.10.0",
     "mocha": "3.2.0",
-    "supertest": "3.0.0"
+    "nodemon": "^1.11.0",
+    "supertest": "3.0.0",
+    "webpack": "^2.2.1"
   }
 }
