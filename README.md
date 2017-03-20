@@ -11,6 +11,7 @@ Parameter | Expecting | Example
 --- | --- | ---
 NODE_ENV | 'production' or 'development' | 'development'
 NODE_PORT | integer of port to listen on | 3000
+NODE_BASEURL | the base url of the webpage | 'http://localhost:3000'
 
 5. `npm start` - Start the server,
 6. `npm run nodemon` - Alternatively, start the server in developer mode, restarting after every change made
@@ -21,3 +22,9 @@ NODE_PORT | integer of port to listen on | 3000
 3. `npm start` - Start the server normally
 4. `npm test` - Run the tests on the project
 5. `npm run lint` - Run the lint beautifier on the project files
+
+## Server paths
+1. `http://<server_url>/` - Main page of the website, the one used by the users
+2. `http://<server_url>/admin` - Administration page
+3. `http://<server_url>/prototype/<page_name>` - Prototyping page for the specified page (<page_name>)
+4. `http://<server_url>/api` - Path for the public API released by the app
