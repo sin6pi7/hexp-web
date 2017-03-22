@@ -22,6 +22,7 @@ NODE_BASEURL | the base url of the webpage | 'http://localhost:3000'
 3. `npm start` - Start the server normally
 4. `npm test` - Run the tests on the project
 5. `npm run lint` - Run the lint beautifier on the project files
+6. `npm run less-watch-compiler` - Watch for changes in the /less folder, and compile all of the .less files inside, outputing to /public/stylesheets
 
 ## Server paths
 1. `http://<server_url>/` - Main page of the website, the one used by the users

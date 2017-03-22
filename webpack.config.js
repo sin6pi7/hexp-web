@@ -7,7 +7,7 @@ module.exports = {
 	devtool: debug ? "inline-sourcemap" : null,
 
 	entry: {
-		app: path.join(__dirname, 'js', 'app', 'app')
+		user: path.join(__dirname, 'js', 'user', 'app')
 	},
 
 	module: {
