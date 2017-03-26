@@ -1,0 +1,24 @@
+{
+
+	// A separation for everything that has to do with listings
+	"listings": {
+		
+		// A place to store all of the listings needed in the app. The listings can be complete or otherwise incomplete.
+		// By complete we assume we have all of the information to display the listing in the full page.
+		// By incomplete we assume we have the necessary information to display in the discovery page.
+		"listings": {
+			"13546": {
+				"id": 13546,
+				"title": "Saving Private Ryan",
+				"description": "Soldiers in WW2 go behind enemy lines to rescue a fellow soldier, private Ryan.",
+				"tags": ["World War 2", "War"],
+				"regions": ["FR"],
+				"periods": ["40s"]
+			}
+		},
+
+		// The current status of getting the listings, starts as 'done' because we have nothing to do, so it's done
+		"getListings": "sent/done/failed",
+	}
+
+}
