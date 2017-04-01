@@ -1,8 +1,0 @@
-All of the actions possible in the react application for the user page
-
-get_listings(filters, number, page):
-	GET_LISTINGS_SENT
-	GET_LISTINGS_DONE
-	GET_LISTINGS_FAILED
-
-	gets: an array of listings, and the total number of pages that can be queried

@@ -5,24 +5,21 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import store from './store';
-import Navbar from './components/navbar';
-import Discovery from './components/discovery';
-import Listing from './components/listing';
+import Discovery from './pages/discovery';
+import Movie from './pages/movie';
 
 // Import leaflet and set correct path for "images"
 import L from 'leaflet';
 L.Icon.Default.imagePath = '/leaflet/images';
 
-// Import $ as a global variable and load all of bootstraps js plugins onto the $ variable
-window.$ = window.jQuery = require('jquery');
-require('bootstrap');
-
 ReactDOM.render(<Provider store={store}>
 	<BrowserRouter history={createBrowserHistory()}>
 		<div id="page-wrapper">
-			<Route exact path="/" render={() => (<Redirect to="/discovery" />)}/>
-			<Route path="/discovery" component={Discovery} />
-			<Route path="/listing/:id" component={Listing} />
+			<Route exact path="/" render={() => (<Redirect to="/discovery" />)} />
+			<Switch>
+				<Route path="/discovery" component={Discovery} />
+				<Route path="/movie/:title?" component={Movie} />
+			</Switch>
 		</div>
 	</BrowserRouter>
 </Provider> , document.getElementById('app'));

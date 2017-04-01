@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import listings from './listingsReducer';
+import movies from './movieReducer';
 
 export default combineReducers({
-	listings
+	movies,
 });

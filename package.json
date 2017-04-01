@@ -8,8 +8,9 @@
     "nodemon": "nodemon bin/www",
     "test": "mocha --recursive",
     "lint": "eslint */*",
-    "webpack": "webpack --watch",
-    "less-watch-compiler": "less-watch-compiler"
+    "webpack": "webpack",
+    "webpack-watch": "webpack --watch",
+    "less": "less-watch-compiler"
   },
   "keywords": [
     "api",
@@ -23,14 +24,13 @@
     "node": "6.10.0"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7",
     "dotenv": "^4.0.0",
     "express": "4.15.2",
     "history": "^4.6.1",
-    "jquery": "^3.2.1",
     "leaflet": "^1.0.3",
     "lodash": "^4.17.4",
     "pug": "^2.0.0-beta11",
+    "purecss": "^0.6.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",

@@ -10,22 +10,23 @@ Repository for hexp web code i.e. api and user and admin frontends.
 Parameter | Expecting | Example
 --- | --- | ---
 NODE_ENV | 'production' or 'development' | 'development'
-NODE_PORT | integer of port to listen on | 3000
-NODE_BASEURL | the base url of the webpage | 'http://localhost:3000'
+SERVER_PORT | integer of port to listen on | 3000
 
-5. `npm start` - Start the server,
-6. `npm run nodemon` - Alternatively, start the server in developer mode, restarting after every change made
+5. `npm run webpack` - Compile all of the .js files needed for the client side,
+6. `npm run less` - Compile all of the .less files into the necessary .css files for the client side. Note that this keeps running watching for changes in the folder, after compiling once, exit the script (ctrl+c),
+7. `npm start` - Start the server,
+8. `npm run nodemon` - Alternatively, start the server in developer mode, restarting after every change made
 
 ## NPM commands
 1. `npm run nodemon` - Watch for changes in the server files (bin/www) and restart the server as the files are changed
-2. `npm run webpack` - Watch for changes in the javascript files (specified in the webpack.config.js) and compile them as they change
-3. `npm start` - Start the server normally
-4. `npm test` - Run the tests on the project
-5. `npm run lint` - Run the lint beautifier on the project files
-6. `npm run less-watch-compiler` - Watch for changes in the /less folder, and compile all of the .less files inside, outputing to /public/stylesheets
+2. `npm run webpack` - Compile all of the javascript files from the js folder and place them in /public/scripts
+3. `npm run webpack-watch` - Same as 'npm run webpack' but watch for changes to the files and auto compile if there are any changes
+4. `npm start` - Start the server normally
+5. `npm test` - Run the tests on the project
+6. `npm run lint` - Run the lint beautifier on the project files
+7. `npm run less` - Watch for changes in the /less folder, and compile all of the .less files inside, outputing to /public/stylesheets
 
 ## Server paths
 1. `http://<server_url>/` - Main page of the website, the one used by the users
 2. `http://<server_url>/admin` - Administration page
-3. `http://<server_url>/prototype/<page_name>` - Prototyping page for the specified page (<page_name>)
-4. `http://<server_url>/api` - Path for the public API released by the app
+3. `http://<server_url>/api` - Path for the public API released by the app

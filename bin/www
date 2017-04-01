@@ -3,7 +3,7 @@ const createApp = require('../lib');
 require('dotenv').load();
 
 const app = createApp();
-const port = process.env.NODE_PORT;
+const port = process.env.SERVER_PORT;
 
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`App listening on ${port}`));
