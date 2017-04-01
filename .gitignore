@@ -1,5 +1,5 @@
 node_modules/
 npm-debug.log
 .env
-public/scripts
-public/stylesheets
+public/scripts/
+public/stylesheets/
