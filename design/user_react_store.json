@@ -1,0 +1,67 @@
+{
+	// All of the information for the current search
+	"searching": {
+		// The tag to search for
+		"tag": "World War 2",
+		// The regions to search for
+		"regions": [],
+		// The periods to search for
+		"periods": [],
+		// The current page number
+		"page": 0,
+		// The number of results per page
+		"number": 10,
+
+		// The current status of the discover API
+		"statusDiscoverMovies": "sent/done/failed",
+	},
+
+	"tags": {
+		// All of the tags currently known about on the client side
+		"tags": [],
+		// The current status of the get tags API request
+		"statusGetTags": "sent/done/failed",
+	},
+
+	"regions": {
+		// All of the regions 
+		"regions" : {
+			"PT": "Portugal",
+		}
+	},
+
+	"periods": {
+		// All of the periods
+		"periods": [],
+	},
+
+	"messages": {
+		// All of the messages that should be displayed to the user
+		"messages": [{
+			"title": "Title of the message",
+			"text": "Text of the message",
+			"type": "info/warning/danger",
+		}],
+	},
+
+	"movies": {
+
+		// All of the movies known in the client-side
+		"movies": {
+			"1" : {
+				"id": 1,
+				"title": "Title of the movie",
+				"description": "Description of the movie",
+				"tags": [],
+				"periods": [],
+				"regions": [],
+				"releaseDate": "2017-01-01",
+				"poster": "http...",
+				"trailerLink": "http...",
+			},
+		},
+
+		// The current status of the getMovie API
+		"statusGetMovie": "sent/done/failed",
+	}
+}

@@ -1,12 +1,156 @@
+/**
+ * General
+ */
+
+@import url('http://fonts.googleapis.com/css?family=Raleway:100');
+
 *,*:before,*:after{
 	box-sizing: border-box; 
 }
 
-#page-wrapper{
+body{
+	//background: url('/public/user-background.png');
+}
+
+/**
+ * Variables
+ */
+
+@footer-height: 0px;
+@primaryColor: #373543;
+
+/**
+ * Components
+ */
+
+.p-button-group-justified{
+	width: 100%;
+	display: flex;
+
+	* {
+		flex: 1;
+	}
+}
+
+.p-message{
+	background-color: darken(grey, 40%);
+	border-radius: 10px;
+	padding: 10px;
+	color: white;
+}
+
+/**
+ * Pages
+ */
+
+.discovery{
+
 	position: absolute;
+	padding: 0;
+	margin: 0;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+	min-width: 100vw;
+	min-height: 100vh;
+
+	.dashboard{
+		min-height: 800px;
+		height: calc(~'100vh - 0px'); // the 0px means footerHeight
+		display: flex;
+		flex-direction: column;
+		border-right: 2px solid @primaryColor;
+
+		.search-container{
+			padding-left: 10px;
+			padding-right: 10px;
+			border-bottom: 2px solid @primaryColor;
+		
+			.search-input{
+				padding: 10px;
+			}
+
+			.selected-regions{
+				padding-left: 10px;
+				padding-right: 10px;
+
+				p{
+					margin: 0;
+					position: relative;
+					top: 50%;
+					transform: translateY(-50%);
+					font-family: "Roboto", sans-serif;
+				}
+				
+			}
+
+			.region-controls{
+				> *{
+					position: relative;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+			}
+		}
+
+		.map-container{
+			flex: 1;
+			display: flex;
+			padding-left: 20px;
+			padding-right: 20px;
+
+			#map{
+				flex: 1;
+				border: 2px solid @primaryColor;
+				border-top: 0;
+				border-bottom: 0;
+			}
+		}
+
+		.periods-container{
+			padding: 10px;
+			border-top: 2px solid @primaryColor;
+
+			.period-controls{
+				display: flex;
+				flex-wrap: wrap;
+
+				> *{
+					
+				}
+			}
+		}
+
+	}
+
+	.listings{
+		min-height: 800px;
+		height: calc(~'100vh - 0px'); // the 0px means footerHeight
+		display: flex;
+		flex-direction: column;
+
+		.message-container{
+			padding: 5px;
+			border-bottom: 2px solid @primaryColor;
+		}
+
+		.movie-list{
+			flex: 1;
+			padding: 5px;
+			overflow: auto;
+
+		}
+
+		.extras-container{
+			padding: 10px;
+			border-top: 2px solid @primaryColor;
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+		}
+	}
+
+	.footer{
+		min-height: @footer-height;
+	}
+
 }

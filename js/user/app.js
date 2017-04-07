@@ -12,14 +12,22 @@ import Movie from './pages/movie';
 import L from 'leaflet';
 L.Icon.Default.imagePath = '/leaflet/images';
 
+// Inject tap event plugin, as specified in the material-ui page
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 ReactDOM.render(<Provider store={store}>
 	<BrowserRouter history={createBrowserHistory()}>
-		<div id="page-wrapper">
-			<Route exact path="/" render={() => (<Redirect to="/discovery" />)} />
-			<Switch>
-				<Route path="/discovery" component={Discovery} />
-				<Route path="/movie/:title?" component={Movie} />
-			</Switch>
-		</div>
+		<MuiThemeProvider>
+			<div>
+				<Route exact path="/" render={() => (<Redirect to="/discovery" />)} />
+				<Switch>
+					<Route path="/discovery" component={Discovery} />
+					<Route path="/movie/:id?" component={Movie} />
+				</Switch>
+			</div>
+		</MuiThemeProvider>
 	</BrowserRouter>
 </Provider> , document.getElementById('app'));
