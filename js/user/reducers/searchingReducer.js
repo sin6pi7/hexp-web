@@ -11,6 +11,9 @@ export default function reducer(state={
 }, action){
 
 	switch(action.type){
+		case "SET_TAG": return setTag(state, action);
+		case "CLEAR_TAG": return clearTag(state, action);
+
 		case "SELECT_REGIONS": return selectRegions(state, action);
 		case "SET_REGIONS": return setRegions(state, action);
 		case "DESELECT_REGIONS": return deselectRegions(state, action);
@@ -30,6 +33,14 @@ export default function reducer(state={
 	}
 
 	return {...state}
+}
+
+function setTag(state, action){
+	return {...state, "tag": action.payload}
+}
+
+function clearTag(state, action){
+	return {...state, "tag": null}
 }
 
 function selectRegions(state, action){	

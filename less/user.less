@@ -154,3 +154,105 @@ body{
 	}
 
 }
+
+.movie{
+
+	> * {
+		padding: 10px;
+		min-height: 100vh;
+		max-height: 100vh;
+	}
+
+	.sidebar{
+		border: 1px solid black;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+
+		img{
+			width: auto;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			flex: 0;
+			max-height: 55vh;
+		}
+
+		#map{
+			flex: 1;
+			width: 100%;
+			border: 2px solid @primaryColor;
+			margin-bottom: 10px;
+		}
+	}
+
+	.dashboard{
+		border: 1px solid black;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		.header{
+			flex: 1;
+			text-align: center;
+			padding-bottom: 2em;
+		}
+
+		.description{
+			flex: 2;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding-left: 2em;
+			padding-right: 2em;
+
+			p{
+				text-align: center;
+			}
+		}
+
+		.details{
+			flex: 4;
+
+			.control-pane{
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+
+				.meta{
+					flex: 1;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					p{
+						text-align: center;
+
+						li{
+							list-style: none;
+							padding: 4px;
+						}
+					}
+				}
+				
+				.controls{
+					flex: 1;
+					display: flex;
+					flex-direction: column;
+					justify-content: flex-end;
+				}
+			}
+
+			.image-list{
+				padding: 5px;
+				overflow-y: auto;
+				overflow-x: hidden;
+
+				img{
+					width: auto !important;
+				}
+			}
+		}
+	}
+
+}

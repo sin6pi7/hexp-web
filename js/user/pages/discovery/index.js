@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import _ from 'lodash';
+
 import { discoverMovies } from '../../actions/searchingActions';
 
 import Dashboard from './dashboard';
@@ -9,13 +11,25 @@ import Footer from './footer';
 
 class Discovery extends React.Component{
 	componentDidMount(){
-		if(!window.firstLoad){
-			window.firstLoad = false;
-			this.searchMoviesFirstTime();
+		if(!window.firstDiscovery){
+			window.firstDiscovery = false;
+			this.discoverMovies();
 		}
 	}
 
-	searchMoviesFirstTime(){
+	componentWillReceiveProps(nextProps){
+		if(!_.isEqualWith(this.props.searching, nextProps.searching, function(objValue, othValue, key){
+			if(key == "statusDiscoverMovies"){
+				return true;
+			}else{
+				return undefined;
+			}
+		})){
+			this.discoverMovies();
+		}
+	}
+
+	discoverMovies(){
 		this.props.dispatch(discoverMovies());
 	}
 
@@ -32,6 +46,6 @@ class Discovery extends React.Component{
 
 export default connect(store=>{
 	return {
-		"number": store.searching.number,
+		"searching": store.searching,
 	}
 })(Discovery);

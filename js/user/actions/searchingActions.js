@@ -1,6 +1,30 @@
 import _ from 'lodash';
 
 /**
+ * Set the current searching tag to the one specified
+ * @param {string} tag - The tag to search for
+ *
+ * SET_TAG
+ */
+export function setTag(tag){
+	return {
+		"type": "SET_TAG",
+		"payload": tag
+	}
+}
+
+/**
+ * Clear the current searching tag
+ *
+ * CLEAR_TAG
+ */
+export function clearTag(){
+	return {
+		"type": "CLEAR_TAG",
+	}
+}
+
+/**
  * Select regions for searching
  * @param  {Array}  regions - The regions to select
  *
