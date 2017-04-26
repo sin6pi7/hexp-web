@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
+import regionData from '../../../../data/regions';
 import _ from 'lodash';
 
 import RaisedButton from 'material-ui/RaisedButton';
@@ -24,12 +25,11 @@ class Sidebar extends React.Component{
 		let regions = [];
 
 		if(!_.isNil(this.props.movies[movieId])){
-			console.log("here");
 			poster = this.props.movies[movieId].poster;
 
 			let _this = this;
 			regions = _.map(this.props.movies[movieId].regions, function(value){
-				return _this.props.regions[value] || value;
+				return regionData[value].name || value;
 			});
 		}
 
@@ -49,6 +49,5 @@ class Sidebar extends React.Component{
 export default withRouter(connect(store=>{
 	return {
 		"movies": store.movies.movies,
-		"regions": store.regions.regions,
 	}
 })(Sidebar));

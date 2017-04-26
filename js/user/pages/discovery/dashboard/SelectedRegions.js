@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import regionData from '../../../../data/regions';
 
 import _ from 'lodash';
 
@@ -13,7 +14,7 @@ class SelectedRegions extends React.Component{
 			regions = ["Everywhere"];
 		}else if(this.props.regions.length <= 2){
 			regions = _.map(this.props.regions, function(value){
-				return this.props.allRegions[value] || value;
+				return regionData[value].name || value;
 			}.bind(this));
 		}else{
 			regions = this.props.regions;
@@ -37,6 +38,5 @@ class SelectedRegions extends React.Component{
 export default connect(store=>{
 	return {
 		"regions": store.searching.regions,
-		"allRegions": store.regions.regions,
 	}
 })(SelectedRegions);

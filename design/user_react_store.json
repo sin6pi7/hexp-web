@@ -23,13 +23,6 @@
 		"statusGetTags": "sent/done/failed",
 	},
 
-	"regions": {
-		// All of the regions 
-		"regions" : {
-			"PT": "Portugal",
-		}
-	},
-
 	"periods": {
 		// All of the periods
 		"periods": [],

@@ -1,0 +1,25 @@
+{
+
+	// Everything to do with the server database
+	"database": {
+
+		// The schema of the database
+		"schema": {
+			// A list of all the tables in the database
+			"<tableName>" : {
+				// A list of all the columns in the table, and the corresponding column type
+				"<columnName>" : "string",
+			},
+		},
+
+		// The current status of the get database schema request
+		"statusGetDatabaseSchema": "sent/done/failed",
+	},
+
+	// Everything needed to control the application
+	"controls": {
+		
+		// The currently selected tab, the name of the table being edited
+		"selectedTab": "tags",
+	}
+}

@@ -26,6 +26,7 @@
   "dependencies": {
     "dotenv": "^4.0.0",
     "express": "4.15.2",
+    "glob": "^7.1.1",
     "history": "^4.6.1",
     "leaflet": "^1.0.3",
     "lodash": "^4.17.4",

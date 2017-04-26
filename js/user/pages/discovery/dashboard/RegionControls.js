@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import regionData from '../../../../data/regions';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'material-ui/Popover';
@@ -7,14 +8,23 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
-import { setRegions, clearRegions } from '../../../actions/searchingActions';
+import { setRegions } from '../../../actions/searchingActions';
 
 class RegionControls extends React.Component{
 	constructor(){
 		super();
+
+		let predefinedRegions = [];
+		_.forEach(regionData, function(obj){
+			predefinedRegions = _.union(predefinedRegions, [obj.region, obj.subregion]);
+		});
+
 		this.state = {
 			"predefinedOpen": false,
 			"predefinedButton": null,
+			"menuItems": _.map(predefinedRegions, function(obj, index){
+				return (<MenuItem key={index} primaryText={obj} value={obj} />);
+			}),
 		}
 	}
 
@@ -52,16 +62,11 @@ class RegionControls extends React.Component{
           			useLayerForClickAway={false}
           			>
 					<Menu onChange={this.onPredefinedItemTouchTap.bind(this)}>
-						<MenuItem primaryText="Europe" value="europe"/>
-						<MenuItem primaryText="North America" value="northamerica"/>
-						<MenuItem primaryText="Asia" value="asia" />
-						<MenuItem primaryText="South America" value="southamerica" />
-						<MenuItem primaryText="Africa" value="africa" />
-						<MenuItem primaryText="Oceania" value="oceania" />
+						{this.state.menuItems}
 					</Menu>
 				</Popover>
 
-				<RaisedButton label="Clear Regions" onTouchTap={() => {this.props.dispatch(clearRegions())}} />
+				<RaisedButton label="Clear Regions" onTouchTap={() => {this.props.dispatch(setRegions([]))}} />
 			</div>
 		);
 	}

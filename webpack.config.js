@@ -1,13 +1,15 @@
 const debug = process.env.NODE_ENV !== "production";
 const webpack = require('webpack');
 const path = require('path');
+const fs = require('fs');
 
 module.exports = {
 	context: __dirname,
 	devtool: debug ? "inline-sourcemap" : null,
 
 	entry: {
-		user: path.join(__dirname, 'js', 'user', 'app')
+		user: path.join(__dirname, 'js', 'user', 'app'),
+		admin: path.join(__dirname, 'js', 'admin', 'app'),
 	},
 
 	module: {

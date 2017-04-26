@@ -51,39 +51,15 @@ export function deselectRegions(regions=[]){
 }
 
 /**
- * Set the predefined regions for searching
- * @param {string} regions - The predefined regions to set
+ * Set the regions for searching, either by specifying an array of regions or a name of predefined regions
+ * @param {array|string} regions - The regions to search for or the predefined regions name
  *
  * SET_REGIONS
  */
-export function setRegions(regions=null){
+export function setRegions(regions=[]){
 	return {
 		"type": "SET_REGIONS",
 		"payload": regions,
-	}
-}
-
-/**
- * Toggle regions for searching
- * @param  {Array}  regions - The regions to toggle
- *
- * TOGGLE_REGIONS
- */
-export function toggleRegions(regions=[]){
-	return {
-		"type": "TOGGLE_REGIONS",
-		"payload": regions,
-	}
-}
-
-/**
- * Clear all of the selected regions
- *
- * CLEAR_REGIONS
- */
-export function clearRegions(){
-	return {
-		"type": "CLEAR_REGIONS",
 	}
 }
 
