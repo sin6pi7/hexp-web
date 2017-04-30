@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import store from './store';
+
 import Discovery from './pages/discovery';
 import Movie from './pages/movie';
 

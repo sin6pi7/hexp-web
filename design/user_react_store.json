@@ -1,60 +1,62 @@
 {
-	// All of the information for the current search
 	"searching": {
-		// The tag to search for
-		"tag": "World War 2",
-		// The regions to search for
-		"regions": [],
-		// The periods to search for
-		"periods": [],
-		// The current page number
-		"page": 0,
-		// The number of results per page
-		"number": 10,
+		"discovery": {
+			// The tag to search for
+			"tag": null,
+			// The periods to search for
+			"periods": [],
+			// The regions to search for
+			"regions": [],
+			// The current page to search for
+			"page": 0,
+			// The number of results in each page
+			"number": 10,
+		},
 
-		// The current status of the discover API
+		// The current status of the discoverMovies API request
 		"statusDiscoverMovies": "sent/done/failed",
 	},
 
-	"tags": {
-		// All of the tags currently known about on the client side
-		"tags": [],
-		// The current status of the get tags API request
-		"statusGetTags": "sent/done/failed",
-	},
-
-	"periods": {
-		// All of the periods
-		"periods": [],
-	},
-
-	"messages": {
-		// All of the messages that should be displayed to the user
-		"messages": [{
-			"title": "Title of the message",
-			"text": "Text of the message",
-			"type": "info/warning/danger",
-		}],
-	},
-
 	"movies": {
-
-		// All of the movies known in the client-side
+		// All of the movies and the information we know about them
 		"movies": {
-			"1" : {
+			"[id]": {
+				// The id of the movie
 				"id": 1,
-				"title": "Title of the movie",
-				"description": "Description of the movie",
+				// The title of the movie
+				"title": "Saving Private Ryan",
+				// The description of the movie
+				"description": "lorem ipsum",
+				// The tags associated with this movie
 				"tags": [],
+				// The periods associated with this movie
 				"periods": [],
+				// The regions associated with this movie
 				"regions": [],
-				"releaseDate": "2017-01-01",
+				// The meta data associated with this movie
+				"meta": {
+					"Release Date": "2001",
+				},
+				// The trailer link for this movie
+				"trailer_link": "http...",
+				// The link to the poster of the movie
 				"poster": "http...",
-				"trailerLink": "http...",
-			},
+				// An array of images of the movie
+				"images": [],
+			}
 		},
 
-		// The current status of the getMovie API
+		// The current status of the getMovie API request
 		"statusGetMovie": "sent/done/failed",
+	},
+
+	"tags": {
+		// All of the tags we know about
+		"tags": {
+				"[id]": "World War 2",
+		},
+
+		// The current status of the discoverTags API request
+		"statusDiscoverTags": "sent/done/failed",
 	}
 }

@@ -1,15 +1,11 @@
 import { combineReducers } from 'redux';
 
-import movies from './movieReducer';
-import tags from './tagsReducer';
 import searching from './searchingReducer';
-import periods from './periodsReducer';
-import messages from './messageReducer';
+import movies from './movieReducer';
+import tags from './tagReducer';
 
 export default combineReducers({
+	searching,
 	movies,
 	tags,
-	searching,
-	periods,
-	messages,
 });

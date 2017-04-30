@@ -8,19 +8,16 @@ export default function reducer(state={
 
 	switch(action.type){
 
-		case "DISCOVER_MOVIES_DONE": return discoverMoviesDone(state, action);
-
 		case "GET_MOVIE_SENT": return getMovieSent(state, action);
 		case "GET_MOVIE_DONE": return getMovieDone(state, action);
 		case "GET_MOVIE_FAILED": return getMovieFailed(state, action);
 
+		case "DISCOVER_MOVIES_DONE": return discoverMoviesDone(state, action);
+		case "CLEAR_MOVIES": return clearMovies(state, action);
+
 	}
 
 	return {...state}
-}
-
-function discoverMoviesDone(state, action){
-	return {...state, "movies": _.keyBy(action.payload, 'id')}
 }
 
 function getMovieSent(state, action){
@@ -28,9 +25,17 @@ function getMovieSent(state, action){
 }
 
 function getMovieDone(state, action){
-	return {...state, "movies": _.assign({}, state.movies, _.keyBy([action.payload], 'id')), "statusGetMovie": "done"}
+	return {...state, "statusGetMovie": "done", "movies": _.merge({}, state.movies, _.keyBy([action.payload], 'id'))}
 }
 
 function getMovieFailed(state, action){
 	return {...state, "statusGetMovie": "failed"}
+}
+
+function discoverMoviesDone(state, action){
+	return {...state, "movies": _.merge({}, state.movies, _.keyBy(action.payload, 'id'))}
+}
+
+function clearMovies(state, action){
+	return {...state, "movies": {}}
 }

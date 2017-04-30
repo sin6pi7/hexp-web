@@ -1,31 +1,45 @@
 import _ from 'lodash';
 
 /**
- * Get a number of tags from the server
- * @param  {string} search - The string to search tags for
- * @param  {integer} number - How many results to get from the server
+ * Discover a specified number of tags from the system that match the one we searched for
+ * @param  {String} search The search term to use
+ * @param  {Number} number The number of results to return
  *
- * GET_TAGS_SENT
- * GET_TAGS_DONE
- * GET_TAGS_FAILED
+ * DISCOVER_TAGS_SENT
+ * DISCOVER_TAGS_DONE
+ * DISCOVER_TAGS_FAILED
  */
-export function getTags(search="", number=5){
+export function discoverTags(search="", number=5){
 	return function(dispatch){
 		dispatch({
-			type: "GET_TAGS_SENT",
+			"type": "DISCOVER_TAGS_SENT"
 		});
 
 		setTimeout(function(){
 			dispatch({
-				type: "GET_TAGS_DONE",
-				payload: _.map(_.range(number), (o) => {return search + o.toString();}),
+				"type": "DISCOVER_TAGS_DONE",
+				"payload": fakeDiscoverTags(search, number),
 			});
+		}, 200);
+	}
+}
 
-			/*
-			dispatch({
-				type: "GET_TAGS_FAILED",
-			});*/
-		}, 0);
+function fakeDiscoverTags(search, number){
+	return _.map(_.range(number), function(i){
+		return {
+			"id": i,
+			"name": "fakeTag " + i + ": " + search,
+		}
+	});
+}
 
+/**
+ * Clear all of the tags that were discovered
+ *
+ * CLEAR_TAGS
+ */
+export function clearTags(){
+	return {
+		"type": "CLEAR_TAGS",
 	}
 }

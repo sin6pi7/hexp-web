@@ -9,7 +9,7 @@ module.exports = {
 
 	entry: {
 		user: path.join(__dirname, 'js', 'user', 'app'),
-		admin: path.join(__dirname, 'js', 'admin', 'app'),
+		//admin: path.join(__dirname, 'js', 'admin', 'app'),
 	},
 
 	module: {

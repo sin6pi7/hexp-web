@@ -1,32 +1,81 @@
 import _ from 'lodash';
 
 /**
- * Set the current searching tag to the one specified
- * @param {string} tag - The tag to search for
+ * Discover a list of movies. This will send out a CLEAR_MOVIES action if the page being searched = 0
+ * @param  {string} tag     The tag the movie must contain
+ * @param  {Array}  periods The periods the movie must contain
+ * @param  {Array}  regions The regions the movie must contain
+ * @param  {Number} page    The number of the current page to search
+ * @param  {Number} number  The number of results per page
+ *
+ * CLEAR_MOVIES
+ * DISCOVER_MOVIES_SENT
+ * DISCOVER_MOVIES_DONE
+ * DISCOVER_MOVIES_FAILED
+ */
+export function discoverMovies(tag=null, periods=[], regions=[], page=0, number=10){
+	return function(dispatch){
+		if(page === 0){
+			dispatch({
+				"type": "CLEAR_MOVIES",
+			});
+		}
+
+		dispatch({
+			"type": "DISCOVER_MOVIES_SENT",
+		});
+
+		setTimeout(function(){
+			dispatch({
+				"type": "DISCOVER_MOVIES_DONE",
+				"payload": fakeDiscoverMovies(tag, periods, regions, page, number),
+			});
+		}, 500);
+	}
+}
+
+/**
+ * Clear the results for movies we already have, basicly reset the searching algorithm
+ *
+ * CLEAR_MOVIES
+ */
+export function clearMovies(){
+	return {
+		"type": "CLEAR_MOVIES",
+	}
+}
+
+function fakeDiscoverMovies(tag, periods, regions, page, number){
+	return _.map(_.range(number), function(i){
+		return {
+			"id": i*(page+1),
+			"title": "Title movie: " + i*(page+1),
+			"description": "Description movie: " + i*(page+1),
+			"tags": ["fakeTag"],
+			"periods": periods,
+			"regions": regions,
+			"poster": "/public/image.jpg",
+
+		}
+	});
+}
+
+/**
+ * Select the tag to search for
+ * @param {String} tag The tag to search for
  *
  * SET_TAG
  */
-export function setTag(tag){
+export function setTag(tag=""){
 	return {
 		"type": "SET_TAG",
-		"payload": tag
+		"payload": tag,
 	}
 }
 
 /**
- * Clear the current searching tag
- *
- * CLEAR_TAG
- */
-export function clearTag(){
-	return {
-		"type": "CLEAR_TAG",
-	}
-}
-
-/**
- * Select regions for searching
- * @param  {Array}  regions - The regions to select
+ * Select additional regions to search for
+ * @param  {Array}  regions The additional regions to search for
  *
  * SELECT_REGIONS
  */
@@ -38,8 +87,8 @@ export function selectRegions(regions=[]){
 }
 
 /**
- * Deselect regions for searching
- * @param  {Array}  regions - The regions to deselect
+ * Deselect regions to search for
+ * @param  {Array}  regions The regions to deselect
  *
  * DESELECT_REGIONS
  */
@@ -51,8 +100,8 @@ export function deselectRegions(regions=[]){
 }
 
 /**
- * Set the regions for searching, either by specifying an array of regions or a name of predefined regions
- * @param {array|string} regions - The regions to search for or the predefined regions name
+ * Set the regions to search for. Setting to empty array clears the regions
+ * @param {Array|string} regions Either an array of regions, or the name of a predefined selection of regions
  *
  * SET_REGIONS
  */
@@ -64,21 +113,21 @@ export function setRegions(regions=[]){
 }
 
 /**
- * Select periods for searching
- * @param  {Array}  periods - The periods to select
+ * Select periods to search for
+ * @param  {Array}  periods The periods to search for
  *
  * SELECT_PERIODS
  */
 export function selectPeriods(periods=[]){
 	return {
 		"type": "SELECT_PERIODS",
-		"payload": periods
+		"payload": periods,
 	}
 }
 
 /**
- * Deselect periods for searching
- * @param  {Array}  periods - The periods to deselect
+ * Deselect periods to search for
+ * @param  {Array}  periods The periods to deselect
  *
  * DESELECT_PERIODS
  */
@@ -86,82 +135,5 @@ export function deselectPeriods(periods=[]){
 	return {
 		"type": "DESELECT_PERIODS",
 		"payload": periods,
-	}
-}
-
-/**
- * Toggle periods for searching
- * @param  {Array}  periods - The periods to toggle
- *
- * TOGGLE_PERIODS
- */
-export function togglePeriods(periods=[]){
-	return {
-		"type": "TOGGLE_PERIODS",
-		"payload": periods,
-	}
-}
-
-/**
- * Clear all of the selected periods
- *
- * CLEAR_PERIODS
- */
-export function clearPeriods(){
-	return {
-		"type": "CLEAR_PERIODS",
-	}
-}
-
-/**
- * Set the number of results per page
- * @param {Number} number - The number of results per page
- *
- * SET_RESULTS_PER_PAGE
- */
-export function setResultsPerPage(number=10){
-	return {
-		"type": "SET_RESULTS_PER_PAGE",
-		"payload": number,
-	}
-}
-
-/**
- * Discover a list of movies based on the given filters and criteria
- * @param  {string} tag          The tag the movie must have
- * @param  {Array}  regions      All of the regions the movie must portray
- * @param  {Array}  periods      All of the periods the movie must portray
- * @param  {Number} number       The number of results to return
- * @param  {Number} page         The page to return
- * @param  {integer} releasedDate The minimum released date of the movie
- *
- * DISCOVER_MOVIES_SENT
- * DISCOVER_MOVIES_DONE
- * DISCOVER_MOVIES_FAILED
- */
-export function discoverMovies(tag=null, regions=[], periods=[], number=10, page=0, releasedDate=null){
-	return function(dispatch){
-		dispatch({
-			"type": "DISCOVER_MOVIES_SENT",
-		});
-
-		setTimeout(function(){
-			let movies = _.map(_.range(number), function(val){
-				return {
-					"id": val,
-					"title": "Title of movie " + val,
-					"description": "Description of movie " + val,
-					"poster": "/public/image.jpg",
-					"tags": ["World War 2", "Other Tag " + val],
-					"periods": ["40's", "50's"],
-					"regions": ["PT", "FR"],
-				}
-			});
-
-			dispatch({
-				"type": "DISCOVER_MOVIES_DONE",
-				"payload": movies,
-			});
-		}, 2000);
 	}
 }

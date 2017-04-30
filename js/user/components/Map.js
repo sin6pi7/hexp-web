@@ -1,141 +1,122 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import L from 'leaflet';
+
 import _ from 'lodash';
+import L from 'leaflet';
 
 import { selectRegions, deselectRegions } from '../actions/searchingActions';
 import regionData from '../../data/regions';
 
-class Map extends React.Component{
-	componentDidMount(){
-		this.map = L.map(this.refs.map, {
-			"minZoom": 3,
-			"maxZoom": 5,
-		}).setView([51.505, -0.09], 3);
-		L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
-		this.geoJSONLayers = _.mapValues(regionData, function(obj){
-			let layer = L.geoJSON(obj.geoJSON, {
-				"style": function(){
-					return {
-						"opacity": 0,
-						"fillOpacity": 0,
-						"color": "#0000ff",
-						"fillColor": "#0000ff",
-					}
-				}
-			}).addTo(this.map);
+const MAP_STYLE = {
+	"flex": "1",
+	"border": "1px solid black",
+}
 
-			layer.region = obj.code;
-			layer.on('mouseover', this.onLayerMouseOver.bind(this));
-			layer.on('mouseout', this.onLayerMouseOut.bind(this));
-			layer.on('click', this.onClick.bind(this));
+const REGION_UNSELECTED_STYLE = {
+	"opacity": 0,
+	"fillOpacity": 0,
+}
+
+const REGION_SELECTED_STYLE = {
+	"opacity": 1,
+	"fillOpacity": 0.2,
+	"color": "#0000ff",
+	"fillColor": "#0000ff",
+}
+
+const REGIONS_HOVERED_STYLE = {
+	"opacity": 1,
+	"fillOpacity": "0.6",
+	"color": "#ff0000",
+	"fillColor": "#0000ff",
+}
+
+class Map extends React.Component{
+	constructor(){
+		super();
+		this.editing = true;
+		this.previousSelectedRegions = [];
+
+		this.regionLayers = _.mapValues(regionData, function(obj){
+			let layer = L.geoJSON(obj.geoJSON);
+			layer.setStyle(REGION_UNSELECTED_STYLE);
+
+			(function(){
+				layer.on('mouseover', ()=>{ this.onRegionMouseOver(obj.code) }, this);
+				layer.on('mouseout', ()=>{ this.onRegionMouseOut(obj.code) }, this);
+				layer.on('click', ()=>{ this.onRegionClick(obj.code) }, this);
+			}.bind(this))();
 
 			return layer;
 		}.bind(this));
+	}
 
-		if(this.props.match.path === "/movie/:id?"){
-			const movieId = this.props.match.params.id;
-			let regions = [];
+	componentDidMount(){
+		if(this.map){
+			this.map.off();
+			this.map.remove();
+		}
 
-			if(this.props.movies[movieId]){
-				regions = this.props.movies[movieId].regions;
-			}
+		this.map = L.map(this.refs.map, {
+			"minZoom": 4,
+			"maxZoom": 6,
+			"worldCopyJump": true,
+		}).setView([51.505, -0.09], 4);
 
-			this.zoomOnMovie(regions);
+		L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(this.map);
+
+		_.forEach(this.regionLayers, function(obj){obj.addTo(this.map)}.bind(this));
+
+		if(this.props.match.pathname === "/movie/:id?"){
+			this.editing = false;
+		}
+
+		this.map.fitWorld();
+	}
+
+	onRegionMouseOver(region){
+		this.regionLayers[region].setStyle(REGIONS_HOVERED_STYLE);
+	}
+
+	onRegionMouseOut(region){
+		if(this.isRegionSelected(region))
+			this.regionLayers[region].setStyle(REGION_SELECTED_STYLE);
+		else
+			this.regionLayers[region].setStyle(REGION_UNSELECTED_STYLE);
+	}
+
+	isRegionSelected(region){
+		return this.props.selectedRegions.indexOf(region) !== -1;
+	}
+
+	onRegionClick(region){
+		if(this.isRegionSelected(region)){
+			this.props.dispatch(deselectRegions([region]));
+			this.regionLayers[region].setStyle(REGION_UNSELECTED_STYLE);
 		}else{
-			this.map.fitWorld();
+			this.props.dispatch(selectRegions([region]));
+			this.regionLayers[region].setStyle(REGION_SELECTED_STYLE);
 		}
-	}
-
-	zoomOnMovie(regions=[]){
-		console.log("something right here");
-		if(regions.length === 0){
-			this.map.fitWorld();
-		}else{
-			let bounds = L.latLngBounds();
-			_.forEach(regions, function(region){
-				bounds.extend(this.geoJSONLayers[region].getBounds());
-			}.bind(this))
-
-			this.map.fitBounds(bounds);
-		}
-	}
-
-	onClick(layer){
-		let country = layer.target;
-		if(country.selected){
-			console.log("another");
-			this.props.dispatch(deselectRegions([country.region]));
-		}else{
-			console.log("something");
-			this.props.dispatch(selectRegions([country.region]));
-		}
-	}
-
-	onLayerMouseOver(layer){
-		layer = layer.layer;
-		layer.setStyle({
-			"opacity": 1,
-			"fillOpacity": 0.2,
-			"color": "#ff0000",
-			"fillColor": "#ff0000",
-		});
-	}
-
-	onLayerMouseOut(layer){
-		let selected = layer.target.selected;
-		layer = layer.layer;
-		layer.setStyle({
-			"color": "#0000ff",
-			"fillColor": "#0000ff",
-		});
-
-		if(!selected){
-			layer.setStyle({
-				"opacity": 0,
-				"fillOpacity": 0,
-			});
-		}
-	}
-
-	selectLayer(layer){
-		layer.selected = true;
-		layer.setStyle({
-			"opacity": 1,
-			"fillOpacity": 0.2,
-		});
-	}
-
-	deselectLayer(layer){
-		layer.selected = false;
-		layer.setStyle({
-			"opacity": 0,
-			"fillOpacity": 0,
-		});
-	}
-
-	componentDidUpdate(prevProps, prevState){
-		let _this = this;
-		_.forEach(prevProps.regions, function(region){
-			_this.deselectLayer(_this.geoJSONLayers[region]);
-		});
-
-		_.forEach(this.props.regions, function(region){
-			_this.selectLayer(_this.geoJSONLayers[region]);
-		});
 	}
 
 	render(){
+		let toRemove = _.difference(this.previousSelectedRegions, this.props.selectedRegions);
+		let toAdd = _.difference(this.props.selectedRegions, this.previousSelectedRegions);
+
+		_.forEach(toRemove, function(region){ this.regionLayers[region].setStyle(REGION_UNSELECTED_STYLE) }.bind(this))
+		_.forEach(toAdd, function(region){ this.regionLayers[region].setStyle(REGION_SELECTED_STYLE) }.bind(this))
+
+		this.previousSelectedRegions = this.props.selectedRegions;
+
 		return (
-			<div ref="map" id="map"></div>
+			<div ref="map" style={MAP_STYLE}></div>
 		);
 	}
 }
 
 export default withRouter(connect(store=>{
 	return {
-		"regions": store.searching.regions,
-		"movies": store.movies.movies,
+		"selectedRegions": store.searching.searching.regions,
 	}
 })(Map));
