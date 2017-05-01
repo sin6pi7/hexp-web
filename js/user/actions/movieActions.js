@@ -46,3 +46,37 @@ function fakeGetMovie(id){
 		},
 	}
 }
+
+/**
+ * Search movies by title
+ * @param  {string} title - The title to search for
+ * @param {number} number - The number of results to return
+ *
+ * CLEAR_MOVIES
+ * SEARCH_MOVIES_SENT
+ * SEARCH_MOVIES_DONE
+ * SEARCH_MOVIES_FAILED
+ */
+export function searchMovies(title, number=5){
+	return function(dispatch){
+		dispatch({
+			"type": "CLEAR_MOVIES"
+		});
+
+		dispatch({
+			"type": "SEARCH_MOVIES_SENT",
+		});
+
+		setTimeout(function(){
+			dispatch({
+				"type": "SEARCH_MOVIES_DONE",
+				"payload": _.map(_.range(number), function(obj){
+					return {
+						"id": obj,
+						"title": "Title " + obj + ": " + title,
+					}
+				}),
+			});
+		}, 200);
+	}
+}

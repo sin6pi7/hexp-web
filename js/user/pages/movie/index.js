@@ -42,6 +42,7 @@ class Movie extends React.Component{
 		let regions = [];
 		let images = [];
 		let meta = {};
+		let trailer = "";
 
 		let movie = this.props.movies[this.props.match.params.id];
 
@@ -53,6 +54,7 @@ class Movie extends React.Component{
 			regions = movie.regions;
 			images = movie.images;
 			meta = movie.meta;
+			trailer = movie.trailer_link;
 		}
 
 		return (
@@ -63,7 +65,7 @@ class Movie extends React.Component{
 					<Divider />
 				</div>
 				<ImageGrid images={images} />
-				<Controls meta={meta}/>
+				<Controls trailer={trailer} meta={meta}/>
 			</div>
 		);
 	}

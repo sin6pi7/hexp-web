@@ -5,6 +5,8 @@ import AutoComplete from 'material-ui/AutoComplete';
 
 import _ from 'lodash';
 
+import SubmitTag from '../../components/SubmitTag';
+
 import { discoverTags, clearTags } from '../../actions/tagActions';
 import { setTag } from '../../actions/searchingActions';
 
@@ -31,7 +33,10 @@ class TagControls extends React.Component{
 		this.state = {
 			"value": "",
 			"dataSource": [],
+			"submittingNewTag": false,
 		}
+
+		this.lastSearchValue = null;
 	}
 
 	/**
@@ -54,7 +59,15 @@ class TagControls extends React.Component{
 	}
 
 	submitNewTag(tag){
-		alert("Submitting new tag");
+		this.setState({
+			"submittingNewTag": true,
+		});
+	}
+
+	closeSubmitNewTag(){
+		this.setState({
+			"submittingNewTag": false,
+		});
 	}
 
 	/**
@@ -68,6 +81,10 @@ class TagControls extends React.Component{
 			this.discoverTags(search);
 
 		this.setState({"value": search});
+
+		if(search !== SUBMIT_NEW_TAG_TEXT){
+			this.lastSearchValue = search;
+		}
 	}
 
 	/**
@@ -123,6 +140,9 @@ class TagControls extends React.Component{
 					openOnFocus={true}
 					fullWidth={true}
 				/>
+				<SubmitTag newTag={this.lastSearchValue} 
+					close={this.closeSubmitNewTag.bind(this)}
+					open={this.state.submittingNewTag} />
 			</div>
 		);
 	}

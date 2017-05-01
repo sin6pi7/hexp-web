@@ -46,6 +46,12 @@
 			}
 		},
 
+		// All of the movie titles that we have found throught direct title search
+		// This is useful when searching for movies to associate with tags
+		"movieTitles": {
+			"[id]": "title",
+		},
+
 		// The current status of the getMovie API request
 		"statusGetMovie": "sent/done/failed",
 	},

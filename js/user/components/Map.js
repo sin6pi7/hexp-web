@@ -59,17 +59,23 @@ class Map extends React.Component{
 		}
 
 		this.map = L.map(this.refs.map, {
-			"minZoom": 4,
-			"maxZoom": 6,
+			"minZoom": 3,
+			"maxZoom": 8,
 			"worldCopyJump": true,
-		}).setView([51.505, -0.09], 4);
-
-		L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(this.map);
-
+		}).setView([51.505, -0.09], 3);
+		
 		_.forEach(this.regionLayers, function(obj){obj.addTo(this.map)}.bind(this));
 
-		if(this.props.match.pathname === "/movie/:id?"){
+		if(this.props.match.path === "/movie/:id?"){
 			this.editing = false;
+			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+			    maxZoom: 18,
+			    id: 'mapbox.satellite',
+			    accessToken: 'pk.eyJ1IjoiZGFsYW5uYXIiLCJhIjoiYjA0MTcyZDMyNzg2YWNjYTA3ZGE1MGMxMDI5ZWMyYjgifQ.25SjWDdKObbZvLpuGwZM4A'
+			}).addTo(this.map);
+		}else{
+			this.editing = true;
+			L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(this.map);
 		}
 
 		this.map.fitWorld();

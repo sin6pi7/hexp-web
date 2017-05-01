@@ -6,6 +6,7 @@ import Buttons from './Buttons';
 
 const STYLES = {
 	"container": {
+		"flex": "1",
 		"display": "flex",
 		"justifyContent": "space-between",
 		"paddingTop": "20px",
@@ -22,6 +23,7 @@ const STYLES = {
 
 /**
  * @property {object} this.props.meta - The meta details about the movie
+ * @property {string} this.props.trailer - The trailer to the movie
  */
 export default class Controls extends React.Component{
 	render(){
@@ -31,7 +33,7 @@ export default class Controls extends React.Component{
 					<Map />
 				</div>
 				<div style={STYLES.items}>
-					<Buttons />
+					<Buttons trailer={this.props.trailer} />
 				</div>
 				<div style={STYLES.items}>
 					<Meta meta={this.props.meta} />
