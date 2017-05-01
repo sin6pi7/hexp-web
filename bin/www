@@ -1,9 +1,17 @@
+const Sequelize = require('sequelize');
+
 const createApp = require('../lib');
+const createModels = require('../lib/api/models/index');
 
 require('dotenv').load();
 
-const app = createApp();
-const port = process.env.SERVER_PORT;
+const db = new Sequelize(process.env.DATABASE_URI);
+const models = createModels(db);
 
-// eslint-disable-next-line no-console
-app.listen(port, () => console.log(`App listening on ${port}`));
+db.sync().then(() => {
+  const app = createApp({ models });
+  const port = process.env.SERVER_PORT || 3000;
+
+  // eslint-disable-next-line no-console
+  app.listen(port, () => console.log(`App listening on ${port}`));
+});

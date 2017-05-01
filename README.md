@@ -5,17 +5,19 @@ Repository for hexp web code i.e. api and user and admin frontends.
 1. Install node 6.10.0 (e.g. with n),
 2. `npm i` - install dependencies,
 3. `chmod +x pre-commit.sh && ./pre-commit.sh` - add pre-commit hook,
-4. Create or modify .env file in the root directory with the following parameters:
+4. `cp .env.tpl .env` - create environment file and add/modify following parameters:
 
 Parameter | Expecting | Example
 --- | --- | ---
 NODE_ENV | 'production' or 'development' | 'development'
 SERVER_PORT | integer of port to listen on | 3000
+DATABASE_URI | postgres db uri | postgres://hexp:hexp@localhost:5432/hexp
 
 5. `npm run webpack` - Compile all of the .js files needed for the client side,
 6. `npm run less` - Compile all of the .less files into the necessary .css files for the client side. Note that this keeps running watching for changes in the folder, after compiling once, exit the script (ctrl+c),
 7. `npm start` - Start the server,
 8. `npm run nodemon` - Alternatively, start the server in developer mode, restarting after every change made
+9. `npm run db:populate` - Populate database with random data (check out scripts/db-populate.js)
 
 ## NPM commands
 1. `npm run nodemon` - Watch for changes in the server files (bin/www) and restart the server as the files are changed
