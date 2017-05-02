@@ -3,3 +3,4 @@ npm-debug.log
 .env
 public/scripts/
 public/stylesheets
+.idea
