@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   "AF": {
     "name": "Afghanistan",
     "code": "AF",

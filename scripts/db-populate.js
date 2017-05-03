@@ -65,9 +65,7 @@ for (let i = 0; i < TAG_COUNT; i++) {
   });
 }
 // periods
-const PERIOD_COUNT = 300;
-const PERIODS = [];
-for (let i = 0; i < PERIOD_COUNT; i++) {
+const PERIODS = require('../js/data/periods').map((name) => {
   const start = faker.random.number({
     min: 0,
     max: MOVIES.length - 1,
@@ -80,18 +78,16 @@ for (let i = 0; i < PERIOD_COUNT; i++) {
     .slice(start, end)
     .map(({ id }) => ({ id, _through: { score: faker.random.number(1000) }}));
 
-  PERIODS.push({
+  return {
     model: 'period',
     data: {
-      name: faker.random.word(),
+      name,
       movies,
     },
-  });
-}
+  };
+});
 // regions
-const REGION_COUNT = 300;
-const REGIONS = [];
-for (let i = 0; i < REGION_COUNT; i++) {
+const REGIONS = Object.keys(require('../js/data/regions')).map((code) => {
   const start = faker.random.number({
     min: 0,
     max: MOVIES.length - 1,
@@ -104,15 +100,14 @@ for (let i = 0; i < REGION_COUNT; i++) {
     .slice(start, end)
     .map(({ id }) => ({ id, _through: { score: faker.random.number(1000) }}));
 
-  REGIONS.push({
+  return {
     model: 'region',
-    data: {
-      code: faker.random.word(),
-      movies,
-    },
-  });
-}
-
+      data: {
+        code,
+        movies,
+      },
+  };
+});
 
 const db = new Sequelize(process.env.DATABASE_URI);
 const models = createModels(db);
