@@ -44,7 +44,8 @@ class Movie extends React.Component{
 		let meta = {};
 		let trailer = "";
 
-		let movie = this.props.movies[this.props.match.params.id];
+		let movieId = this.props.match.params.id;
+		let movie = this.props.movies[movieId];
 
 		if(!_.isNil(movie)){
 			title = movie.title;
@@ -65,7 +66,7 @@ class Movie extends React.Component{
 					<Divider />
 				</div>
 				<ImageGrid images={images} />
-				<Controls trailer={trailer} meta={meta}/>
+				<Controls movieId={movieId} trailer={trailer} meta={meta}/>
 			</div>
 		);
 	}
