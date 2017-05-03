@@ -4,6 +4,7 @@ export default function reducer(state={
 	"tags": {},
 
 	"statusDiscoverTags": "done",
+	"statusCreateNewTag": "done",
 }, action){
 	
 	switch(action.type){
@@ -11,6 +12,10 @@ export default function reducer(state={
 		case "DISCOVER_TAGS_SENT": return discoverTagsSent(state, action);
 		case "DISCOVER_TAGS_DONE": return discoverTagsDone(state, action);
 		case "DISCOVER_TAGS_FAILED": return discoverTagsFailed(state, action);
+
+		case "CREATE_NEW_TAG_SENT": return createNewTagSent(state, action);
+		case "CREATE_NEW_TAG_DONE": return createNewTagDone(state, action);
+		case "CREATE_NEW_TAG_FAILED": return createNewTagFailed(state, action);
 
 		case "CLEAR_TAGS": return clearTags(state, action);
 
@@ -33,4 +38,16 @@ function discoverTagsFailed(state, action){
 
 function clearTags(state, action){
 	return {...state, "tags": {}}
+}
+
+function createNewTagSent(state, action){
+	return {...state, "statusCreateNewTag": "sent"}
+}
+
+function createNewTagDone(state, action){
+	return {...state, "statusCreateNewTag": "done"}
+}
+
+function createNewTagFailed(state, action){
+	return {...state, "statusCreateNewTag": "failed"}
 }

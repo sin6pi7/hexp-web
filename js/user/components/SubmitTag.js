@@ -9,6 +9,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import _ from 'lodash';
 
 import { searchMovies } from '../actions/movieActions';
+import { createNewTag } from '../actions/tagActions';
 
 const NEW_TAG_ERROR = "Please enter a new topic name";
 const MOVIE_ERROR = "Please select an existing movie";
@@ -31,14 +32,32 @@ class SubmitTag extends React.Component{
 
 	}
 
-	onCancel(){
+	close(){
+		this.reset();
 		this.props.close();
+	}
+
+	reset(){
+		this.setState({
+			"autoCompleteError": null,
+			"newTagError": null,
+			"newTag": "",
+			"movieId": null,
+		});
+	}
+
+	onCancel(){
+		this.close();
+	}
+
+	submitTag(){
+		this.props.dispatch(createNewTag(this.state.newTag, this.state.movieId));
 	}
 
 	onSubmit(){
 		if(!_.isEmpty(this.state.newTag) && !_.isNil(this.state.movieId)){
-			alert("Submitting: " + this.state.newTag + " -> " + this.state.movieId);
-			this.props.close();
+			this.submitTag();
+			this.close();
 		}else{
 			this.setState({
 				"autoCompleteError": _.isNil(this.state.movieId) ? MOVIE_ERROR : null,

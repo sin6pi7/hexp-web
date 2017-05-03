@@ -64,5 +64,7 @@
 
 		// The current status of the discoverTags API request
 		"statusDiscoverTags": "sent/done/failed",
+		// The current status of the createNewTag API request
+		"statusCreateNewTag": "sent/done/failed",
 	}
 }

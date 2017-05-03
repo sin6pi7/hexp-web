@@ -9,6 +9,8 @@ import store from './store';
 import Discovery from './pages/discovery';
 import Movie from './pages/movie';
 
+import NewTagSnackbar from './components/NewTagSnackbar';
+
 // Import leaflet and set correct path for "images"
 import L from 'leaflet';
 L.Icon.Default.imagePath = '/leaflet/images';
@@ -28,6 +30,7 @@ ReactDOM.render(<Provider store={store}>
 					<Route path="/discovery" component={Discovery} />
 					<Route path="/movie/:id?" component={Movie} />
 				</Switch>
+				<NewTagSnackbar />
 			</div>
 		</MuiThemeProvider>
 	</BrowserRouter>
