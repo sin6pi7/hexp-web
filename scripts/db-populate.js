@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const { loadFixtures } = require('sequelize-fixtures');
 
 const createModels = require('../lib/api/models');
+const { VOTABLE_TYPES: { PERIOD, TAG, REGION } } = require('../lib/api/models/movie_votable');
 
 require('dotenv').load();
 
@@ -35,13 +36,13 @@ MOVIES.forEach((movie) => {
       model: 'movie_image',
       data: {
         url: faker.image.imageUrl(),
-        movie: movie.id,
+        movieId: movie.id,
       },
     });
   }
 });
 // tags
-const TAG_COUNT = 300;
+const TAG_COUNT = 50;
 const TAGS = [];
 for (let i = 0; i < TAG_COUNT; i++) {
   const start = faker.random.number({
@@ -54,7 +55,13 @@ for (let i = 0; i < TAG_COUNT; i++) {
   });
   const movies = MOVIES
     .slice(start, end)
-    .map(({ id }) => ({ id, _through: { score: faker.random.number(1000) }}));
+    .map(({ id }) => ({
+      id,
+      _through: {
+        score: faker.random.number(1000),
+        votableType: TAG,
+      }
+    }));
 
   TAGS.push({
     model: 'tag',
@@ -76,7 +83,13 @@ const PERIODS = require('../js/data/periods').map((name) => {
   });
   const movies = MOVIES
     .slice(start, end)
-    .map(({ id }) => ({ id, _through: { score: faker.random.number(1000) }}));
+    .map(({ id }) => ({
+      id,
+      _through: {
+        score: faker.random.number(1000),
+        votableType: PERIOD,
+      }
+    }));
 
   return {
     model: 'period',
@@ -98,7 +111,13 @@ const REGIONS = Object.keys(require('../js/data/regions')).map((code) => {
   });
   const movies = MOVIES
     .slice(start, end)
-    .map(({ id }) => ({ id, _through: { score: faker.random.number(1000) }}));
+    .map(({ id }) => ({
+      id,
+      _through: {
+        score: faker.random.number(1000),
+        votableType: REGION,
+      }
+    }));
 
   return {
     model: 'region',
