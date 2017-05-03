@@ -41,12 +41,12 @@ export default class Header extends React.Component{
 				<div style={STYLES.details}>
 					<div style={STYLES.detailGroup}>
 						{_.map(this.props.tags, function(obj, index){
-							return (<div style={STYLES.chip} key={index}><Chip>{obj}</Chip></div>);
+							return (<div style={STYLES.chip} key={index}><Chip>{obj.name}</Chip></div>);
 						})}
 					</div>
 					<div style={STYLES.detailGroup}>
 						{_.map(this.props.periods, function(obj, index){
-							return (<div style={STYLES.chip} key={index}><Chip>{obj}</Chip></div>);
+							return (<div style={STYLES.chip} key={index}><Chip>{obj.name}</Chip></div>);
 						})}
 					</div>
 				</div>

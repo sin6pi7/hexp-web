@@ -44,7 +44,7 @@ export function discoverMovies(tag=null, periods=[], regions=[], page=0, number=
 		.then(function(response){
 			dispatch({
 				"type": "DISCOVER_MOVIES_DONE",
-				"payload": response.data.rows,
+				"payload": response.data,
 			});
 		})
 

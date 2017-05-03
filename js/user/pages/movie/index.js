@@ -36,7 +36,7 @@ class Movie extends React.Component{
 
 	render(){
 		let title = "Loading title...";
-		let description = "Loading description... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+		let description = "Loading description...";
 		let tags = [];
 		let periods = [];
 		let regions = [];
@@ -49,13 +49,13 @@ class Movie extends React.Component{
 
 		if(!_.isNil(movie)){
 			title = movie.title;
-			this.description = description;
+			description = movie.description;
 			tags = movie.tags;
 			periods = movie.periods;
 			regions = movie.regions;
 			images = movie.images;
 			meta = movie.meta;
-			trailer = movie.trailer_link;
+			trailer = movie.trailer;
 		}
 
 		return (

@@ -51,7 +51,7 @@ function searchMoviesFailed(state, action){
 }
 
 function discoverMoviesDone(state, action){
-	return {...state, "movies": _.merge({}, state.movies, _.keyBy(action.payload, 'id'))}
+	return {...state, "movies": _.merge({}, state.movies, _.keyBy(action.payload.rows, 'id'))}
 }
 
 function clearMovies(state, action){

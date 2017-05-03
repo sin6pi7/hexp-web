@@ -147,7 +147,7 @@ class Listings extends React.Component{
 	createNoResultsPaper(){
 		return (
 			<Paper zDepth={3} key="noResults" style={{...STYLES.paper, ...STYLES.specialPaper}}>
-				<h3>No Results</h3>
+				<h3>No More Results</h3>
 				<h6>Try different search paramenters</h6>
 			</Paper>
 		);
@@ -159,9 +159,9 @@ class Listings extends React.Component{
 
 		if(this.props.statusDiscoverMovies === 'sent'){
 			data.push(this.createLoadingPaper());
-		}else if(this.props.page >= MAX_AUTOMATIC_REQUEST_PAGES){
+		}else if(this.props.page >= MAX_AUTOMATIC_REQUEST_PAGES && data.length < this.props.results){
 			data.push(this.createLoadMorePaper());
-		}else if(data.length < 1){
+		}else if(data.length < 1 || data.length >= this.props.results || this.props.results === null){
 			data.push(this.createNoResultsPaper());
 		}
 
@@ -178,6 +178,7 @@ export default withRouter(connect(store=>{
 	return {
 		"movies": store.movies.movies,
 		"page": store.searching.searching.page,
+		"results": store.searching.searching.results,
 		"statusDiscoverMovies": store.searching.statusDiscoverMovies,
 	}
 })(Listings));

@@ -9,6 +9,7 @@ export default function reducer(state={
 		"regions": [],
 		"page": 0,
 		"number": 10,
+		"results": null,
 	},
 
 	"statusDiscoverMovies": "done",
@@ -42,7 +43,13 @@ function discoverMoviesSent(state, action){
 }
 
 function discoverMoviesDone(state, action){
-	return {...state, "statusDiscoverMovies": "done", "searching": {...state.searching, "page": state.searching.page+1}}
+	return {...state, "statusDiscoverMovies": "done", "searching": 
+		{
+			...state.searching,
+			"page": state.searching.page+1, 
+			"results": (action.payload.rows.length === 0 && action.payload.count > 0) ? null : action.payload.count,
+		}
+	}
 }
 
 function discoverMoviesFailed(state, action){
