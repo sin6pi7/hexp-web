@@ -52,7 +52,7 @@ class TagControls extends React.Component{
 
 	/**
 	 * Set the currently used tag for searching
-	 * @param {integer} tag - The id of the tag to search for
+	 * @param {string} tag - The name of the tag to search for
 	 */
 	setTag(tag){
 		this.props.dispatch(setTag(tag));
@@ -111,7 +111,7 @@ class TagControls extends React.Component{
 			data = _.map(this.props.tags, function(value, key){
 				return {
 					"text": value,
-					"value": key,
+					"value": value,
 				}
 			});
 

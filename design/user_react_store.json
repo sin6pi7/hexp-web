@@ -11,6 +11,10 @@
 			"page": 0,
 			// The number of results in each page
 			"number": 10,
+
+			// The total results for the query discovery settings (the number of results in the database)
+			// If unknown, then it shall be null
+			"results": null,
 		},
 
 		// The current status of the discoverMovies API request

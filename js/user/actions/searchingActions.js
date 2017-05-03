@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import axios from 'axios';
 
 /**
  * Discover a list of movies. This will send out a CLEAR_MOVIES action if the page being searched = 0
@@ -15,6 +16,8 @@ import _ from 'lodash';
  */
 export function discoverMovies(tag=null, periods=[], regions=[], page=0, number=10){
 	return function(dispatch){
+		const URL = '/api/movies';
+
 		if(page === 0){
 			dispatch({
 				"type": "CLEAR_MOVIES",
@@ -25,12 +28,32 @@ export function discoverMovies(tag=null, periods=[], regions=[], page=0, number=
 			"type": "DISCOVER_MOVIES_SENT",
 		});
 
-		setTimeout(function(){
+		axios({
+			"method": "get",
+			"url": URL,
+			"params": {
+				"tag": tag,
+				"periods": periods.length > 0 ? periods.join(',') : null,
+				"regions": regions.length > 0 ? regions.join(',') : null,
+				"limit": number,
+				"page": page,
+			}
+		})
+
+		// Success
+		.then(function(response){
 			dispatch({
 				"type": "DISCOVER_MOVIES_DONE",
-				"payload": fakeDiscoverMovies(tag, periods, regions, page, number),
+				"payload": response.data.rows,
 			});
-		}, 500);
+		})
+
+		// Failed
+		.catch(function(response){
+			dispatch({
+				"type": "DISCOVER_MOVIES_FAILED",
+			});
+		});
 	}
 }
 
@@ -43,21 +66,6 @@ export function clearMovies(){
 	return {
 		"type": "CLEAR_MOVIES",
 	}
-}
-
-function fakeDiscoverMovies(tag, periods, regions, page, number){
-	return _.map(_.range(number), function(i){
-		return {
-			"id": i*(page+1),
-			"title": "Title movie: " + i*(page+1),
-			"description": "Description movie: " + i*(page+1),
-			"tags": ["fakeTag"],
-			"periods": periods,
-			"regions": regions,
-			"poster": "/public/image.jpg",
-
-		}
-	});
 }
 
 /**
