@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 import database from './databaseReducer';
-import controls from './controlReducer';
+import query from './queryReducer';
 
 export default combineReducers({
 	database,
-	controls,
+	query,
 });

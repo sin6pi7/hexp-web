@@ -1,25 +1,29 @@
 {
-
-	// Everything to do with the server database
 	"database": {
+		"database": {
+			// The elements that we are displaying on the page
+			"elements": [{}],
+		},
+	},
 
-		// The schema of the database
-		"schema": {
-			// A list of all the tables in the database
-			"<tableName>" : {
-				// A list of all the columns in the table, and the corresponding column type
-				"<columnName>" : "string",
+	"query": {
+		// All the information about querying options
+		"query": {
+			// The current table we are editing/viewing
+			"table": "movies/tags",
+			// The number of results per page
+			"limit": 25,
+			// The total number of results we can query for
+			"results": 20,
+			// The current page of results we are on
+			"page": 0,
+			// Special options, such as searching by name or title
+			"options": {
+
 			},
 		},
 
-		// The current status of the get database schema request
-		"statusGetDatabaseSchema": "sent/done/failed",
-	},
-
-	// Everything needed to control the application
-	"controls": {
-		
-		// The currently selected tab, the name of the table being edited
-		"selectedTab": "tags",
+		// The current status of the query
+		"statusQuery": "sent/done/failed"
 	}
 }

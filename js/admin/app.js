@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 
 import Layout from './Layout';
 import store from './store';
@@ -14,11 +12,7 @@ injectTapEventPlugin();
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 ReactDOM.render(<Provider store={store}>
-	<BrowserRouter history={createBrowserHistory()}>
-		<MuiThemeProvider>
-			<div>
-				<Layout />
-			</div>
-		</MuiThemeProvider>
-	</BrowserRouter>
+	<MuiThemeProvider>
+		<Layout />
+	</MuiThemeProvider>
 </Provider> , document.getElementById('app'));
