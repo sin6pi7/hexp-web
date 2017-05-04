@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { discoverMovies } from '../../actions/searchingActions';
+import axios from 'axios';
+
+import { discoverMovies, setRegions } from '../../actions/searchingActions';
 
 import _ from 'lodash';
 
@@ -19,6 +21,18 @@ const CONTAINER_STYLE = {
 }
 
 class Discovery extends React.Component{
+	componentDidMount(){
+		if(window.firstLoad){
+			axios.get("http://freegeoip.net/json/")
+				.then(function(response){
+					this.props.dispatch(setRegions([response.data.country_code]));
+				}.bind(this));
+
+		}
+
+		window.firstLoad = false;
+	}
+
 	onRequestNewPage(){
 		if(this.props.statusDiscoverMovies !== 'sent'){
 			let tag = this.props.searching.tag;

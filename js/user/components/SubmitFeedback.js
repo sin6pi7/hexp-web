@@ -10,6 +10,9 @@ import MenuItem from 'material-ui/MenuItem';
 
 import _ from 'lodash';
 
+import { discoverTags } from '../actions/tagActions';
+import { vote } from '../actions/movieActions';
+
 import periodData from '../../data/periods';
 import regionData from '../../data/regions';
 
@@ -33,27 +36,101 @@ class SubmitFeedback extends React.Component{
 	}
 
 	onSubmit(){
-		alert("Submitting");
+		let voteType, elementType;
+		switch(this.state.feedbackType){
+			case "linkTopic":
+				voteType = "upvote";
+				elementType = "tag";
+				break;
+
+			case "unlinkTopic":
+				voteType = "downvote";
+				elementType = "tag";
+				break;
+			
+			case "linkPeriod":
+				voteType = "upvote";
+				elementType = "period";
+				break;
+
+			case "unlinkPeriod":
+				voteType = "downvote";
+				elementType = "period";
+				break;
+
+			case "linkRegion":
+				voteType = "upvote";
+				elementType = "region";
+				break;
+
+			case "unlinkRegion":
+				voteType = "downvote";
+				elementType = "region";
+				break;
+		}
+
+		let movieId = this.props.movieId;
+		let elementId = this.state.element;
+
+		this.props.dispatch(vote(movieId, elementType, elementId, voteType));
+
 		this.props.close();
 	}
 
 	onFeedbackTypeChange(event, key, value){
 		this.setState({
 			"feedbackType": value,
+			"element": null,
 		});
 	}
 
+	onLinkNewRequest(item){
+		let element;
+
+		switch(this.state.feedbackType){
+			case "linkTopic":
+			case "linkRegion":
+				element = item.value;
+				break;
+
+			case "linkPeriod":
+				element = item;
+				break;
+		}
+
+		this.setState({
+			"element": element,
+		});
+	}
+
+	onInputSearchTags(search){
+		this.props.dispatch(discoverTags(search));
+	}
+
 	createLinkToTopic(){
+		const dataSource = _.map(this.props.tags, function(value, key){
+			return {
+				"text": value,
+				"value": key,
+			}
+		});
+
 		return (
 			<AutoComplete
 				floatingLabelText="Select Topic"
-				dataSource={[]} />
+				dataSource={dataSource}
+				disableFocusRipple={false}
+				hintText="Enter a topic..."
+				filter={AutoComplete.noFilter}
+				onNewRequest={this.onLinkNewRequest.bind(this)}
+				onUpdateInput={this.onInputSearchTags.bind(this)}
+				fullWidth={true} />
 		);
 	}
 
 	createUnlinkFromTopic(){
 		const tags = _.map(this.props.movies[this.props.movieId].tags, function(obj){
-			return (<MenuItem key={obj} value={obj} primaryText={obj} />);
+			return (<MenuItem key={obj.name} value={obj.id} primaryText={obj.name} />);
 		});
 
 		return (
@@ -71,13 +148,18 @@ class SubmitFeedback extends React.Component{
 		return (
 			<AutoComplete
 				floatingLabelText="Select Period"
-				dataSource={[]} />
+				dataSource={periodData}
+				disableFocusRipple={false}
+				filter={AutoComplete.caseInsensitiveFilter}
+				hintText="Enter a period..."
+				onNewRequest={this.onLinkNewRequest.bind(this)}
+				fullWidth={true} />
 		);
 	}
 
 	createUnlinkFromPeriod(){
 		const periods = _.map(this.props.movies[this.props.movieId].periods, function(obj){
-			return (<MenuItem key={obj} value={obj} primaryText={obj} />);
+			return (<MenuItem key={obj.name} value={obj.id} primaryText={obj.name} />);
 		});
 
 		return (
@@ -92,16 +174,28 @@ class SubmitFeedback extends React.Component{
 	}
 
 	createLinkToRegion(){
+		const dataSource = _.map(regionData, function(value, key){
+			return {
+				"text": value.name,
+				"value": key,
+			}
+		});
+
 		return (
 			<AutoComplete
 				floatingLabelText="Select Region"
-				dataSource={[]} />
+				dataSource={dataSource}
+				disableFocusRipple={false}
+				filter={AutoComplete.caseInsensitiveFilter}
+				hintText="Enter a region..."
+				onNewRequest={this.onLinkNewRequest.bind(this)}
+				fullWidth={true} />
 		);
 	}
 
 	createUnlinkFromRegion(){
 		const regions = _.map(this.props.movies[this.props.movieId].regions, function(obj){
-			return (<MenuItem key={obj} value={obj} primaryText={obj} />);
+			return (<MenuItem key={obj.code} value={obj.id} primaryText={obj.code} />);
 		});
 
 		return (
@@ -178,5 +272,6 @@ class SubmitFeedback extends React.Component{
 export default connect(store=>{
 	return {
 		"movies": store.movies.movies,
+		"tags": store.tags.tags,
 	}
 })(SubmitFeedback);

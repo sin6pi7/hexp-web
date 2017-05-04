@@ -10,6 +10,7 @@ import Discovery from './pages/discovery';
 import Movie from './pages/movie';
 
 import NewTagSnackbar from './components/NewTagSnackbar';
+import VoteSnackbar from './components/VoteSnackbar';
 
 // Import leaflet and set correct path for "images"
 import L from 'leaflet';
@@ -21,6 +22,8 @@ injectTapEventPlugin();
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+window.firstLoad = true;
+
 ReactDOM.render(<Provider store={store}>
 	<BrowserRouter history={createBrowserHistory()}>
 		<MuiThemeProvider>
@@ -31,6 +34,7 @@ ReactDOM.render(<Provider store={store}>
 					<Route path="/movie/:id?" component={Movie} />
 				</Switch>
 				<NewTagSnackbar />
+				<VoteSnackbar />
 			</div>
 		</MuiThemeProvider>
 	</BrowserRouter>

@@ -58,6 +58,7 @@
 
 		// The current status of the getMovie API request
 		"statusGetMovie": "sent/done/failed",
+
 	},
 
 	"tags": {
@@ -70,5 +71,11 @@
 		"statusDiscoverTags": "sent/done/failed",
 		// The current status of the createNewTag API request
 		"statusCreateNewTag": "sent/done/failed",
+	},
+
+	"voting": {
+		
+		// The current status of the vote API request
+		"statusVote": "sent/done/failed",
 	}
 }

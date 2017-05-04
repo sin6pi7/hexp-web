@@ -82,7 +82,7 @@ class Map extends React.Component{
 				if(this.props.movies[movieId].regions.length > 0){
 					let bounds = L.latLngBounds();
 					_.forEach(this.props.movies[movieId].regions, function(region){
-						bounds.extend(this.regionLayers[region].getBounds());
+						bounds.extend(this.regionLayers[region.code].getBounds());
 					}.bind(this));
 
 					this.map.fitBounds(bounds);

@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {  }
-
-import Controls from './components/Controls';
-import Table from './components/Table';
-import Pagination from './components/Pagination';
+import Controls from './components/controls';
+import Table from './components/table';
+import Pagination from './components/pagination';
 
 const STYLES = {
 	"container": {

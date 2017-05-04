@@ -81,3 +81,95 @@ export function searchMovies(title, number=5){
 		});
 	}
 }
+
+/**
+ * Upvote or downvote the link between a specified movie and a tag, period or region
+ * @param  {number} movieId     The id of the movie in question
+ * @param  {string} elementType Tag/Region/Period
+ * @param  {number} elementId   The id of the element in question
+ * @param  {string} voteType    upvote/downvote
+ *
+ * VOTE_SENT
+ * VOTE_DONE
+ * VOTE_FAILED
+ */
+export function vote(movieId, elementType, elementId, voteType){
+	return function(dispatch){
+		const regionURL = "/api/regions";
+		const periodURL = "/api/periods";
+
+		dispatch({
+			"type": "VOTE_SENT",
+		});
+
+		if(elementType === "period"){
+
+			axios({
+				"method": "get",
+				"url": periodURL,
+				"params": { "name": elementId }
+			})
+
+			.then(function(response){
+				sendVote(movieId, elementType, response.data.rows[0].id, voteType, dispatch);
+			})
+
+			.catch(function(response){
+				dispatch({
+					"type": "VOTE_FAILED",
+				});
+			});
+
+		}else if(elementType === "region"){
+
+			axios({
+				"method": "get",
+				"url": regionURL,
+				"params": { "name": elementId }
+			})
+
+			.then(function(response){
+				sendVote(movieId, elementType, response.data.rows[0].id, voteType, dispatch);
+			})
+
+			.catch(function(response){
+				dispatch({
+					"type": "VOTE_FAILED",
+				});
+			});
+
+		}else{
+			sendVote(movieId, elementType, elementId, voteType, dispatch);
+		}
+
+	}
+}
+
+function sendVote(movieId, elementType, elementId, voteType, dispatch){
+	const URL = "/api/votes";
+
+	axios({
+		"method": "patch",
+		"url": URL,
+		"data": {
+			"action": voteType,
+			"movieId": movieId,
+			"votableType": elementType,
+			"votableId": elementId,
+		}
+	})
+
+	// Success
+	.then(function(response){
+		dispatch({
+			"type": "VOTE_DONE",
+		});
+	})
+
+	// Failed
+	.catch(function(response){
+		dispatch({
+			"type": "VOTE_FAILED",
+		});
+	});
+}
