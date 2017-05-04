@@ -15,3 +15,19 @@ export function changeTable(table){
 		"payload": table, 
 	}
 }
+
+/**
+ * Change the current page being edited/viewed
+ * @param  {number} page The page to jump to
+ *
+ * CHANGE_PAGE
+ */
+export function changePage(page){
+	if(page < 0)
+		return;
+
+	return {
+		"type": "CHANGE_PAGE",
+		"payload": page,
+	}
+}

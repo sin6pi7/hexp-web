@@ -10,7 +10,7 @@
 		// All the information about querying options
 		"query": {
 			// The current table we are editing/viewing
-			"table": "movies/tags",
+			"table": "movies/tags/movie_links",
 			// The number of results per page
 			"limit": 25,
 			// The total number of results we can query for

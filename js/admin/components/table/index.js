@@ -14,10 +14,24 @@ const STYLES = {
 }
 
 class AdminTable extends React.Component{
+	createTableRow(obj){
+		return (
+			<TableRow key={obj.id}>
+				{_.map(databaseTableColumns[this.props.table], function(column, index){
+					return (
+						<TableRowColumn key={index}>{obj[column]}</TableRowColumn>
+					);
+				})}
+			</TableRow>
+		);
+	}
+
 	render(){
-		const tableHeaderColumns = _.map(databaseTableColumns[this.props.table], function(obj){
-			return ( <TableHeaderColumn>{obj}</TableHeaderColumn> );
+		const tableHeaderColumns = _.map(databaseTableColumns[this.props.table], function(obj, index){
+			return ( <TableHeaderColumn key={index} >{obj}</TableHeaderColumn> );
 		});
+
+		const tableRows = _.map(this.props.elements, this.createTableRow.bind(this));
 
 		return (
 			<Table style={STYLES.table}>
@@ -29,6 +43,9 @@ class AdminTable extends React.Component{
 						{tableHeaderColumns}
 					</TableRow>
 				</TableHeader>
+				<TableBody>
+					{tableRows}
+				</TableBody>
 			</Table>
 		);
 	}
@@ -37,5 +54,6 @@ class AdminTable extends React.Component{
 export default connect(store=>{
 	return {
 		"table": store.query.query.table,
+		"elements": store.database.database.elements,
 	}
 })(AdminTable);

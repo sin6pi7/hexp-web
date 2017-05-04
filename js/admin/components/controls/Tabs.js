@@ -26,6 +26,7 @@ class AdminTabs extends React.Component{
 			>
 				<Tab label="Movies" value="movies" />
 				<Tab label="Tags" value="tags" />
+				<Tab label="Movie Links" value="movie_links" />
 			</Tabs>
 		);
 	}

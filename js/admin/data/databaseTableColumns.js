@@ -21,41 +21,13 @@ export default {
 		"updatedAt",
 	],
 
-	"movie_periods": [
-		"score",
-		"createdAt",
-		"updatedAt",
-		"movieId",
-		"periodId",
-	],
-
-	"movie_regions": [
-		"score",
-		"createdAt",
-		"updatedAt",
-		"movieId",
-		"regionId",
-	],
-
-	"movie_tags": [
-		"score",
-		"createdAt",
-		"updatedAt",
-		"movieId",
-		"tagId",
-	],
-
-	"periods": [
+	"movie_links": [
 		"id",
-		"name",
+		"movieId",
+		"votableType",
+		"votableId",
+		"score",
 		"createdAt",
 		"updatedAt",
-	],
-
-	"regions": [
-		"id",
-		"name",
-		"createdAt",
-		"updatedAt",
-	],
+	]
 }
