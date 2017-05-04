@@ -54,7 +54,13 @@ class Movie extends React.Component{
 			periods = movie.periods;
 			regions = movie.regions;
 			images = movie.images;
-			meta = movie.meta;
+			meta = {
+				"Producer": movie.producer,
+				"Director": movie.director,
+				"Cast": movie.cast,
+				"Release date": movie.release_date,
+			};
+			
 			trailer = movie.trailer;
 		}
 
