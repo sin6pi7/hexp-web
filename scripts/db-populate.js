@@ -35,7 +35,12 @@ MOVIES.forEach((movie) => {
     MOVIE_IMAGES.push({
       model: 'movie_image',
       data: {
-        url: faker.image.imageUrl(),
+        url: faker.image.imageUrl(
+          undefined,
+          undefined,
+          undefined,
+          true // randomize images
+        ),
         movieId: movie.id,
       },
     });
