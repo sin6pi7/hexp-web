@@ -11,7 +11,8 @@
     "webpack": "webpack",
     "webpack-watch": "webpack --watch",
     "less": "less-watch-compiler",
-    "db:populate": "node scripts/db-populate.js"
+    "db:populate": "node scripts/db-populate.js",
+    "api:docs": "apidoc -i lib/api -o public/docs"
   },
   "keywords": [
     "api",
@@ -52,7 +53,6 @@
     "sequelize-fixtures": "^0.5.6"
   },
   "devDependencies": {
-    "apidoc": "^0.17.6",
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
     "babel-preset-es2015": "^6.24.0",
