@@ -43,6 +43,7 @@ class Movie extends React.Component{
 		let images = [];
 		let meta = {};
 		let trailer = "";
+    let tmdbId = "";
 
 		let movieId = this.props.match.params.id;
 		let movie = this.props.movies[movieId];
@@ -54,6 +55,7 @@ class Movie extends React.Component{
 			periods = movie.periods;
 			regions = movie.regions;
 			images = _.map(movie.movie_images, function(o){ return o.url });
+      tmdbId = movie.tmdb_id;
 			meta = {
 				"Producer": movie.producer,
 				"Director": movie.director,
@@ -72,7 +74,7 @@ class Movie extends React.Component{
 					<Divider />
 				</div>
 				<ImageGrid images={images} />
-				<Controls movieId={movieId} trailer={trailer} meta={meta}/>
+				<Controls movieId={movieId} trailer={trailer} meta={meta} tmdbId={tmdbId}/>
 			</div>
 		);
 	}

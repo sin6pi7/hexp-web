@@ -75,6 +75,10 @@ class Buttons extends React.Component{
 		window.open(this.props.trailer);
 	}
 
+  openTMDBPage(){
+    window.open(`https://www.themoviedb.org/movie/${this.props.tmdbId}`);
+  }
+
 	goBack(){
 		if(this.props.history.length > 0)
 			this.props.history.goBack();
@@ -98,7 +102,14 @@ class Buttons extends React.Component{
 					label="Watch trailer"
 					disabled={_.isEmpty(this.props.trailer)}
 					onTouchTap={this.watchTrailer.bind(this)} />
-				<RaisedButton style={STYLES.button} 
+				<RaisedButton style={STYLES.button}
+					labelColor={blueGrey800}
+					backgroundColor={blueGrey50}
+					fullWidth={true}
+					label="See on TMDB"
+					disabled={_.isEmpty(this.props.tmdbId)}
+					onTouchTap={this.openTMDBPage.bind(this)} />
+				<RaisedButton style={STYLES.button}
 					labelColor={blueGrey800}
 					backgroundColor={blueGrey50}
 					fullWidth={true} 

@@ -34,7 +34,7 @@ export default class Controls extends React.Component{
 					<Map />
 				</div>
 				<div style={STYLES.items}>
-					<Buttons movieId={this.props.movieId} trailer={this.props.trailer} />
+					<Buttons movieId={this.props.movieId} trailer={this.props.trailer} tmdbId={this.props.tmdbId}/>
 				</div>
 				<div style={STYLES.items}>
 					<Meta meta={this.props.meta} />
